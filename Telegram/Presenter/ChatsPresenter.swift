@@ -87,6 +87,7 @@ class ChatsPresenter {
         let chat1 = Chat(
             id: "chat1",
             userWith: nikita,
+            messages: [m1],
             lastMessage: m1,
             unreadCount: 0,
             isMuted: false,
@@ -96,6 +97,7 @@ class ChatsPresenter {
         let chat2 = Chat(
             id: "chat2",
             userWith: alice,
+            messages: [m2],
             lastMessage: m2,
             unreadCount: 1,
             isMuted: false,
@@ -105,6 +107,7 @@ class ChatsPresenter {
         let chat3 = Chat(
             id: "chat3",
             userWith: dima,
+            messages: [m3],
             lastMessage: m3,
             unreadCount: 0,
             isMuted: true,

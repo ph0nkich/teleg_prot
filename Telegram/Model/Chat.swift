@@ -10,6 +10,7 @@ import Foundation
 struct Chat {
     let id: String
     let userWith: User
+    var messages: [Message]
     var lastMessage: Message
     var unreadCount: Int
     var isMuted: Bool

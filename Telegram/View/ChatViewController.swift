@@ -21,10 +21,7 @@ class ChatViewController: UIViewController {
         
         guard let chat = chat else { return }
         otherUser = chat.userWith
-        messages = [
-            Message(id: "1", text: "Привет, как дела?", date: Date(), sender: User(id: "", name: "", surname: "", photo: nil, number: "", bio: "", isOnline: true), isRead: true, replyTo: nil),
-            Message(id: "2", text: "Все заебись", date: Date(), sender: currentUser, isRead: true, replyTo: nil)
-        ]
+        messages = chat.messages
         setupNavBar()
         setupChat()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)

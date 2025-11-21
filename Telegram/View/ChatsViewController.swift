@@ -13,7 +13,6 @@ class ChatsViewController: UIViewController {
     var chatPresenter: ChatsPresenter!
     private var cancellables = Set<AnyCancellable>()
     private var chats: [Chat] = []
-    private var forPullRequest = 1
     
     private let tableView: UITableView = {
         let tableView = UITableView()
