@@ -13,17 +13,51 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        self.window = UIWindow(windowScene: windowScene)
+        setupGlobalAppearance(for: windowScene.traitCollection)
+        let loginVC = LoginViewController()
+        let navController = UINavigationController(rootViewController: loginVC)
+        window?.rootViewController = navController
+        window?.makeKeyAndVisible()
+    }
+    
+    func setupGlobalAppearance(for traits: UITraitCollection) {
+        let isDark = traits.userInterfaceStyle == .dark
+        let tint: UIColor = isDark ? .white : .systemBlue
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.largeTitleTextAttributes = [.foregroundColor: tint]
+        appearance.titleTextAttributes = [.foregroundColor: tint]
+        appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: tint]
+        appearance.doneButtonAppearance.normal.titleTextAttributes = [.foregroundColor: tint]
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        
+        UINavigationBar.appearance().tintColor = tint
+        UITabBar.appearance().tintColor = tint
+        
     }
 
+    func windowScene(_ windowScene: UIWindowScene, didUpdate previousCoordinateSpace: any UICoordinateSpace, interfaceOrientation previousInterfaceOrientation: UIInterfaceOrientation, traitCollection previousTraitCollection: UITraitCollection) {
+        if previousTraitCollection.userInterfaceStyle != windowScene.traitCollection.userInterfaceStyle {
+            setupGlobalAppearance(for: windowScene.traitCollection)
+            
+            if let nav = window?.rootViewController as? UINavigationController {
+                nav.navigationBar.standardAppearance = UINavigationBar.appearance().standardAppearance
+                nav.navigationBar.scrollEdgeAppearance = UINavigationBar.appearance().scrollEdgeAppearance
+            }
+            
+            window?.rootViewController?.view.setNeedsLayout()
+            window?.rootViewController?.view.layoutIfNeeded()
+        }
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
+
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
